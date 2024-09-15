@@ -1,0 +1,23 @@
+(User types "yo" in the edit box and presses Save)
+
+1. POST https://studies.cs.helsinki.fi/exampleapp/new_note 
+    POST data:
+        note: yo 
+    Status 302
+    //Client has sent the request with the note to post it
+
+2. GET https://studies.cs.helsinki.fi/exampleapp/notes
+    Status 304
+    //Client requested the "structure" of the page
+
+3. GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    Status 304
+    //Client has requested the stylesheet for the page
+
+4. GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    Status 304
+    //Client has requested the js script for loading the notes
+
+5. GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    Status 200 
+    //The script loads the notes and shows them on the page
