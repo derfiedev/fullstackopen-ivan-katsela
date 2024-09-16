@@ -1,13 +1,25 @@
+const PrintTime = (props) =>{
+  const datenow = new Date()
+  return(
+    <div>
+      <strong>{datenow.toString()}</strong>
+       {props.end}
+      <br/>
+    </div>
+  )
+}
+
 const App = () => {
   console.log("hold up")
-  const datenow = new Date()
+
 
   return (
     
     <div>
       <p>Hello worlsssd</p>
       <i>yo wassup </i>
-      <strong>{datenow.toString()}</strong>
+      <PrintTime end="one"/>
+      <PrintTime end="two"/>
     </div>
   )
 }
