@@ -9,6 +9,15 @@ const PrintTime = (props) =>{
   )
 }
 
+const Footer = () =>{
+  return(
+    <footer>
+      <hr />
+      Page made by derfie
+    </footer>
+  )
+}
+
 const App = () => {
   console.log("hold up")
 
@@ -20,6 +29,7 @@ const App = () => {
       <i>yo wassup </i>
       <PrintTime end="one"/>
       <PrintTime end="two"/>
+      <Footer/>
     </div>
   )
 }
