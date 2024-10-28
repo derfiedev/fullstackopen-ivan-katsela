@@ -1,0 +1,17 @@
+(User opens the page https://studies.cs.helsinki.fi/exampleapp/spa)
+
+1. GET https://studies.cs.helsinki.fi/exampleapp/spa
+    Status 304
+    //Client has requested the html structure of the page
+
+2. GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    Status 304
+    //Client has requested the stylesheet for the page
+
+3. GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    Status 304
+    //Client has requested the js script for loading the notes
+
+4. GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    Status 200 
+    //The script loads the notes and shows them on the page
