@@ -44,8 +44,12 @@ const App = () => {
         name: 'State of a component',
         exercises: 14
       }
-    ]
+    ],
+    greet: function(){
+      return "Frogs"
+    }
   }
+  
 
   return (
     <div>
@@ -54,6 +58,10 @@ const App = () => {
                 part2={course.parts[1].name} exercises2={course.parts[1].exercises} 
                 part3={course.parts[2].name} exercises3={course.parts[2].exercises}/>
       <Total exercises1={course.parts[0].exercises} exercises2={course.parts[1].exercises} exercises3={course.parts[2].exercises}/>
+      <p>{course.greet()}</p>
+
+
+      
     </div>
   )
 }
