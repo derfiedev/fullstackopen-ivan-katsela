@@ -9,18 +9,27 @@ const App = () => {
   const [score, setScore] = useState(0)
   const [percPositive, setPercPositive] = useState(0)
   
+  const StatisticsLine = (props) =>{
+    return(
+      <p>{props.text}: {props.value}</p>
+    )
+  }
 
   const Statistics  = (props) => {
+    if (good+bad+neutral != 0)
     return(
       <div>
         <h1>statistics</h1>
-        <p>Good: {good}</p>
-        <p>Neutral: {neutral}</p>
-        <p>Bad: {bad}</p>
-        <p>Total: {total}</p>
-        <p>Average: {score}</p>
-        <p>Positive: {percPositive}</p>
+        <StatisticsLine text="Good" value={good}/>
+        <StatisticsLine text="Neutral" value={neutral}/>
+        <StatisticsLine text="Bad" value={bad}/>
+        <StatisticsLine text="Total" value={total}/>
+        <StatisticsLine text="Average" value={score}/>
+        <StatisticsLine text="Positive" value={percPositive + "%"}/>
       </div>
+    )
+    else return (
+      <div>No feedback given yet</div>
     )
   }
   
@@ -29,6 +38,7 @@ const App = () => {
     setTotal(good + neutral + bad + 1)
     setScore((good * 1 + bad * (-1))/(good + bad))
     setPercPositive(good/(good+neutral+bad)*100)
+    
   }
 
   const handleGoodClick = () =>{
