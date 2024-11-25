@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import { Statistics } from './components/Statistics'
+
+
 const App = () => {
 
   const [good, setGood] = useState(0)
@@ -9,29 +12,9 @@ const App = () => {
   const [score, setScore] = useState(0)
   const [percPositive, setPercPositive] = useState(0)
   
-  const StatisticsLine = (props) =>{
-    return(
-      <p>{props.text}: {props.value}</p>
-    )
-  }
 
-  const Statistics  = (props) => {
-    if (good+bad+neutral != 0)
-    return(
-      <div>
-        <h1>statistics</h1>
-        <StatisticsLine text="Good" value={good}/>
-        <StatisticsLine text="Neutral" value={neutral}/>
-        <StatisticsLine text="Bad" value={bad}/>
-        <StatisticsLine text="Total" value={total}/>
-        <StatisticsLine text="Average" value={score}/>
-        <StatisticsLine text="Positive" value={percPositive + "%"}/>
-      </div>
-    )
-    else return (
-      <div>No feedback given yet</div>
-    )
-  }
+
+
   
 
   const updateStats = () =>{
@@ -64,14 +47,16 @@ const App = () => {
         <button onClick={handleNeutralClick}>neutral</button>
         <button onClick={handleBadClick}>bad</button>
       </div>
-      <Statistics/>
-      {/* <h1>statistics</h1>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p>Average: {score}</p>
-      <p>Positive: {percPositive}</p> */}
+      <Statistics 
+        data={{
+          good: good,
+          neutral: neutral,
+          bad: bad,
+          total: total,
+          average: score,
+          positive: percPositive
+        }}
+      />
     </div>
   )
 }

@@ -46,7 +46,7 @@ const App = () => {
       }
     ],
     greet: function(){
-      return "Frogs"
+      return "Hello"
     }
   }
   
