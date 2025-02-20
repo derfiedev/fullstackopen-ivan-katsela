@@ -17,13 +17,17 @@ const App = () => {
     axios.get(url)
       .then(response => {
         setPersons(response.data)
-        setIncrement(response.data.length + 1)
-      })
+        const maxId = response.data.reduce((max, person) => person.id > max ? person.id : max, 0)
+        setIncrement(maxId + 1)
+            })
   }, [])
 
   const handleClick = (event) => {
     const id = parseInt(event.target.value)
     setPersons(persons.filter(person => person.id !== id))
+    
+    axios.delete(`${url}/${id}`)
+
   }
 
   return (

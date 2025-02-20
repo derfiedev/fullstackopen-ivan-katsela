@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhone, setNewPhone, increment, setIncrement }) => {
     const addPerson = (event) => {
         event.preventDefault();
@@ -15,6 +17,7 @@ export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhon
         setNewName('');
         setNewPhone('');
         setIncrement(increment + 1);
+        axios.post('http://localhost:3001/persons', personObject);
     };
 
     return (
