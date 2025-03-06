@@ -24,7 +24,7 @@ const App = () => {
 
   const handleClick = (event) => {
     if (!window.confirm('Are you sure you want to delete this person?')) return
-    const id = event.target.value // Keep id as a string
+    const id = event.target.value
     console.log('Attempting to delete person with id:', id)
 
     const personExists = persons.some(person => person.id === id)

@@ -3,8 +3,9 @@ import axios from "axios";
 export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhone, setNewPhone, increment, setIncrement }) => {
     const addPerson = (event) => {
         event.preventDefault();
-
         if (persons.find(person => person.name === newName)) {
+            const confirm = window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`);
+            if (!confirm) return;
             const person = persons.find(person => person.name === newName);
             const updatedPerson = { ...person, number: newPhone };
 
@@ -15,6 +16,7 @@ export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhon
                     setNewName('');
                     setNewPhone('');
                 });
+            return;
         }
         const personObject = {
             name: newName,
