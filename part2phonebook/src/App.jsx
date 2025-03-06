@@ -3,6 +3,8 @@ import axios from 'axios'
 import { ViewPersons } from './components/ViewPersons'
 import { Filter } from './components/Filter'
 import { AddNewPerson } from './components/AddNewPerson'
+import { Notification } from './components/Notification'
+import './index.css'
 
 const url = 'http://localhost:3001/persons'
 
@@ -12,6 +14,9 @@ const App = () => {
   const [newPhone, setNewPhone] = useState('')
   const [filter, setFilter] = useState('')
   const [increment, setIncrement] = useState(1)
+
+  const [notification, setNotification] = useState(null)
+  const [notificationType, setNotificationType] = useState('success')
 
   useEffect(() => {
     axios.get(url)
@@ -39,12 +44,23 @@ const App = () => {
     axios.delete(`${url}/${id}`)
       .then(response => {
         console.log('Person deleted successfully', response)
+        setNotificationType('success')
+        setNotification('Person deleted successfully')
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
       })
       .catch(error => {
         if (error.response) {
           console.error('Error response:', error.response)
           if (error.response.status === 404) {
             alert('Error: Person not found on the server')
+            setPersons(persons.filter(person => person.id !== id))  
+            setNotificationType('error')
+            setNotification('Person not found on the server')
+            setTimeout(() => {
+              setNotification(null)
+            }, 5000)
           } else {
             console.error('Error deleting person:', error)
           }
@@ -56,8 +72,9 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
       <Filter filter={filter} setFilter={setFilter} />
+      <Notification type={notificationType} message={notification} />
       <AddNewPerson 
         persons={persons} 
         setPersons={setPersons} 
