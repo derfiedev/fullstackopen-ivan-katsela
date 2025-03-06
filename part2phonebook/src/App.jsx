@@ -23,11 +23,35 @@ const App = () => {
   }, [])
 
   const handleClick = (event) => {
-    const id = parseInt(event.target.value)
-    setPersons(persons.filter(person => person.id !== id))
-    
-    axios.delete(`${url}/${id}`)
+    if (!window.confirm('Are you sure you want to delete this person?')) return
+    const id = event.target.value // Keep id as a string
+    console.log('Attempting to delete person with id:', id)
 
+    const personExists = persons.some(person => person.id === id)
+    if (!personExists) {
+      alert('Error: Person not found in the local state')
+      return
+    }
+
+    // Update the state before making the delete request
+    setPersons(persons.filter(person => person.id !== id))
+
+    axios.delete(`${url}/${id}`)
+      .then(response => {
+        console.log('Person deleted successfully', response)
+      })
+      .catch(error => {
+        if (error.response) {
+          console.error('Error response:', error.response)
+          if (error.response.status === 404) {
+            alert('Error: Person not found on the server')
+          } else {
+            console.error('Error deleting person:', error)
+          }
+        } else {
+          console.error('Error deleting person:', error)
+        }
+      })
   }
 
   return (

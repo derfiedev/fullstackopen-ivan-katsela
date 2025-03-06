@@ -3,9 +3,18 @@ import axios from "axios";
 export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhone, setNewPhone, increment, setIncrement }) => {
     const addPerson = (event) => {
         event.preventDefault();
+
         if (persons.find(person => person.name === newName)) {
-            alert(`${newName} is already added to phonebook`);
-            return;
+            const person = persons.find(person => person.name === newName);
+            const updatedPerson = { ...person, number: newPhone };
+
+            axios
+                .put(`http://localhost:3001/persons/${person.id}`, updatedPerson)
+                .then(response => {
+                    setPersons(persons.map(p => p.id !== person.id ? p : response.data));
+                    setNewName('');
+                    setNewPhone('');
+                });
         }
         const personObject = {
             name: newName,
