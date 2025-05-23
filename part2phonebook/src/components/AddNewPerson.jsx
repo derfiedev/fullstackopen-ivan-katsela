@@ -10,7 +10,7 @@ export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhon
             const updatedPerson = { ...person, number: newPhone };
 
             axios
-                .put(`http://localhost:3001/persons/${person.id}`, updatedPerson)
+                .put(`http://localhost:3001/api/person/${person.id}`, updatedPerson)
                 .then(response => {
                     setPersons(persons.map(p => p.id !== person.id ? p : response.data));
                     setNewName('');

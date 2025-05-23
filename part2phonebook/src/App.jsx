@@ -6,7 +6,7 @@ import { AddNewPerson } from './components/AddNewPerson'
 import { Notification } from './components/Notification'
 import './index.css'
 
-const url = 'http://localhost:3001/persons'
+const url = 'http://localhost:3001/api/persons' 
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -22,9 +22,8 @@ const App = () => {
     axios.get(url)
       .then(response => {
         setPersons(response.data)
-        const maxId = response.data.reduce((max, person) => person.id > max ? person.id : max, 0)
-        setIncrement(maxId + 1)
-            })
+        
+      })
   }, [])
 
   const handleClick = (event) => {
@@ -38,12 +37,9 @@ const App = () => {
       return
     }
 
-    // Update the state before making the delete request
-    setPersons(persons.filter(person => person.id !== id))
-
     axios.delete(`${url}/${id}`)
       .then(response => {
-        console.log('Person deleted successfully', response)
+        setPersons(persons.filter(person => person.id !== id))
         setNotificationType('success')
         setNotification('Person deleted successfully')
         setTimeout(() => {
@@ -51,19 +47,14 @@ const App = () => {
         }, 5000)
       })
       .catch(error => {
-        if (error.response) {
-          console.error('Error response:', error.response)
-          if (error.response.status === 404) {
-            alert('Error: Person not found on the server')
-            setPersons(persons.filter(person => person.id !== id))  
-            setNotificationType('error')
-            setNotification('Person not found on the server')
-            setTimeout(() => {
-              setNotification(null)
-            }, 5000)
-          } else {
-            console.error('Error deleting person:', error)
-          }
+        if (error.response && error.response.status === 404) {
+          alert('Error: Person not found on the server')
+          setPersons(persons.filter(person => person.id !== id))
+          setNotificationType('error')
+          setNotification('Person not found on the server')
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         } else {
           console.error('Error deleting person:', error)
         }
@@ -82,8 +73,7 @@ const App = () => {
         setNewName={setNewName} 
         newPhone={newPhone} 
         setNewPhone={setNewPhone} 
-        increment={increment} 
-        setIncrement={setIncrement} 
+
       />
       <ViewPersons persons={persons} handleClick={handleClick} filter={filter} />
     </div>
