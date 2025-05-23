@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhone, setNewPhone, increment, setIncrement }) => {
+export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhone, setNewPhone }) => {
     const addPerson = (event) => {
         event.preventDefault();
         if (persons.find(person => person.name === newName)) {
@@ -20,15 +20,15 @@ export const AddNewPerson = ({ persons, setPersons, newName, setNewName, newPhon
         }
         const personObject = {
             name: newName,
-            number: newPhone,
-            id: increment
+            number: newPhone
         };
 
-        setPersons(persons.concat(personObject));
-        setNewName('');
-        setNewPhone('');
-        setIncrement(increment + 1);
-        axios.post('http://localhost:3001/persons', personObject);
+        axios.post('http://localhost:3001/api/person', personObject)
+            .then(response => {
+                setPersons(persons.concat(response.data));
+                setNewName('');
+                setNewPhone('');
+            });
     };
 
     return (

@@ -4,6 +4,8 @@ const app = express()
 const cors = require('cors')
 app.use(cors())
 
+app.use(express.json())
+
 app.use(morgan('tiny'))
 
 let entries = [
@@ -93,7 +95,7 @@ app.get('/info', (request, response) =>{
                   + currentdate.getSeconds();
   response.send("<p>Phonebook has " + entries.length + " people</p><p>"+datetime+"</p>")
 })
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
